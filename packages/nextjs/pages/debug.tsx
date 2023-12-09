@@ -6,19 +6,16 @@ import { ContractUI } from "../components/scaffold-eth";
 import { ContractName } from "../utils/scaffold-eth/contract";
 import { getContractNames } from "../utils/scaffold-eth/contractNames";
 
-import React, { useState } from 'react';
-
 const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 const contractNames = getContractNames();
+
+import React from 'react';
 
 const Debug: NextPage = () => {
   const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
     selectedContractStorageKey,
     contractNames[0],
   );
-
-  const [selectedFileName, setSelectedFileName] = useState('')
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 
   useEffect(() => {
@@ -33,40 +30,6 @@ const Debug: NextPage = () => {
         title="Debug Contracts | Scaffold-ETH 2"
         description="Debug your deployed 🏗 Scaffold-ETH 2 contracts in an easy way"
       />
-      {/* To Upload Files */}
-      <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
-        
-      <input type="file" onChange={(event) => {
-        const file = event.target.files?.item(0);
-        if (file) {
-          console.log(file);
-          setSelectedFile(file);
-          setSelectedFileName(file.name);
-        } else {
-          console.log('No file selected');
-        }
-      }} />
-
-      <p>Selected file: {selectedFileName}</p>
-
-      <button onClick={async () => {
-        if (selectedFileName) {
-          const formData = new FormData();
-            formData.append('file', selectedFile);
-
-          const response = await fetch('https://your-server.com/upload', {
-            method: 'POST',
-            body: formData,
-          });
-
-          if (response.ok) {
-            console.log('File uploaded successfully');
-          } else {
-            console.log('File upload failed');
-          }
-        }
-      }}>Upload</button>
-      </div>
 
       <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
         {contractNames.length === 0 ? (
@@ -97,16 +60,6 @@ const Debug: NextPage = () => {
             ))}
           </>
         )}
-      </div>
-      <div className="text-center mt-8 bg-secondary p-10">
-        <h1 className="text-4xl my-0">Debug Contracts</h1>
-        <p className="text-neutral">
-          You can debug & interact with your deployed contracts here.
-          <br /> Check{" "}
-          <code className="italic bg-base-300 text-base font-bold [word-spacing:-0.5rem] px-1">
-            packages / nextjs / pages / debug.tsx
-          </code>{" "}
-        </p>
       </div>
     </>
   );
