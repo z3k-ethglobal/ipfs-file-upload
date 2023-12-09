@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { NextPage } from "next";
+import axios from 'axios';
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "../components/MetaHeader";
 
@@ -8,6 +8,16 @@ import React, { useState } from 'react';
 const Home: NextPage = () => {
   const [selectedFileName, setSelectedFileName] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const upload = () => {
+    const formData = new FormData();
+    formData.append('file', selectedFile as Blob);
+    axios.post('http://localhost:8080/upload', formData
+    ).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
   return (
     <>
       <MetaHeader />
@@ -28,6 +38,9 @@ const Home: NextPage = () => {
             }} />
 
             <p>Selected file: {selectedFileName}</p>
+            <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
+            <button type="button" onClick={upload}>Upload</button>
+            </div>
             </div>
           </div>
         </div>
