@@ -34,8 +34,6 @@ Visit your app on: `http://localhost:3000`.
 - Edit your smart contract `FilecoinMetadataStore.sol` in `packages/hardhat/contracts`
 - Edit your frontend in `packages/nextjs/pages`
 - Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your app config in `packages/nextjs/scaffold.config.ts`
-
 
 ## 📝 Notes
 ### Deploying App on Scroll + Spheron
