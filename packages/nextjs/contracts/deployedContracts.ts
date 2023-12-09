@@ -60,7 +60,7 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          name: "getMetadataAddress",
+          name: "getUserMetadata",
           outputs: [
             {
               internalType: "string",
