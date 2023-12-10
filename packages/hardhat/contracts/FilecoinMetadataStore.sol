@@ -8,7 +8,8 @@ pragma solidity 0.8.17;
 contract FilecoinMetadataStore {
 	address public immutable owner;
     // Mapping address to Filecoin metadata address
-    mapping(address => string) public addressToMetadata;
+    mapping(address => string) public addressToHash;
+	mapping(bytes32 => string) public keccaktoCID;
 
     // Event emitted when a user stores their metadata
     event MetadataStored(address indexed user, string metadataAddress);
@@ -18,14 +19,18 @@ contract FilecoinMetadataStore {
 	}
 
     // External payable function to get user's metadata address
-    function getUserMetadata(address user) external payable returns (string memory) {
+    function getUserHash(address user) external payable returns (string memory) {
         // Return the metadata address
-        return addressToMetadata[user];
+        return addressToHash[user];
     }
+
+	function getHashMetadata(bytes32 kecc) external payable returns (string memory) {
+		return keccaktoCID[kecc];
+	}
 
     // Store user's metadata address
     function storeMetadata(string memory metadataAddress) public {
-        addressToMetadata[msg.sender] = metadataAddress;
+        addressToHash[msg.sender] = metadataAddress;
         emit MetadataStored(msg.sender, metadataAddress);
     }
 
